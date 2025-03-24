@@ -772,45 +772,57 @@ const restaurants = [
 
 // your code here
 
-// function to calculate distance between two points
-function calculateDistance(userLat, userLon, restLat, restLon) {
-  const latDiff = restLat - userLat;
-  const lonDiff = restLon - userLon;
-  return Math.sqrt(latDiff * latDiff + lonDiff * lonDiff);
-}
+const table = document.querySelector('table');
+const dialog = document.querySelector('dialog');
 
+const sortedRestaurants = [...restaurants].sort((a, b) =>
+  a.name.localeCompare(b.name)
+);
 
-// main code
-navigator.geolocation.getCurrentPosition((position) => {
-  const userLat = position.coords.latitude;
-  const userLon = position.coords.longitude;
+function renderRestaurants() {
+  const tbody = document.createElement('tbody');
 
-  const restarauntsWithDistance = restaurants.map((restaurant) => {
-    const distance = calculateDistance(
-      userLat,
-      userLon,
-      restaurant.location.latitude,
-      restaurant.location.longitude
-    );
-    return { ...restaurant, distance };
-  });
-
-  const restaurantsWithDistance = restarauntsWithDistance.sort((a, b) => a.distance - b.distance);
-  const table = document.querySelector('table');
-  restaurantsWithDistance.forEach((restaurant) => {
+  sortedRestaurants.forEach(restaurant => {
     const row = document.createElement('tr');
 
-    const nameCell = document.createElement('td');
-    nameCell.textContent = restaurant.name;
-    row.appendChild(nameCell);
+    row.innerHTML = `
+      <td>${restaurant.name}</td>
+      <td>${restaurant.address}</td>
+    `;
 
-    const addressCell = document.createElement('td');
-    addressCell.textContent = restaurant.address;
-    row.appendChild(addressCell);
+    row.addEventListener('click', () => {
+      document.querySelectorAll('tbody tr').forEach(r => {
+        r.classList.remove('highlight');
+      });
 
-    table.appendChild(row);
+      row.classList.add('highlight');
+      showRestaurantDetails(restaurant);
+    });
+
+    tbody.appendChild(row);
   });
-}, (error) => {
-  console.error("Error getting location:", error);
+
+  const existingTbody = table.querySelector('tbody');
+  if (existingTbody) table.replaceChild(tbody, existingTbody);
+  else table.appendChild(tbody);
 }
-);
+
+function showRestaurantDetails(restaurant) {
+  dialog.innerHTML = `
+    <h2>${restaurant.name}</h2>
+    <p><strong>Address:</strong> ${restaurant.address}</p>
+    <p><strong>Postal Code:</strong> ${restaurant.postalCode}</p>
+    <p><strong>City:</strong> ${restaurant.city}</p>
+    <p><strong>Phone:</strong> ${restaurant.phone}</p>
+    <p><strong>Company:</strong> ${restaurant.company}</p>
+    <button onclick="this.closest('dialog').close()">Close</button>
+  `;
+
+  dialog.showModal();
+}
+
+dialog.addEventListener('click', function (e) {
+  if (e.target === this) this.close();
+});
+
+renderRestaurants();
