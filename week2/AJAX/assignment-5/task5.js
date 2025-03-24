@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${MENU_API_BASE}/${restaurantId}/fi`);
             if (!response.ok) throw new Error('Failed to fetch menu');
             const data = await response.json();
-            console.log('Menu data for restaurant', restaurantId, ':', data); // ← Добавьте эту строку
+            console.log('Menu data for restaurant', restaurantId, ':', data);
             return data;
         } catch (error) {
             console.error('Error:', error);
@@ -90,11 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.showModal();
     }
 
+
+    // Modal close button 
     closeBtn.addEventListener('click', () => {
         modal.close();
     });
-
-    // Закрытие по клику вне модального окна
+    // also close modal when clicking outside of it
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.close();
