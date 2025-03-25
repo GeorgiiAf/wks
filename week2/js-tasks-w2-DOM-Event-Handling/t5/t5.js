@@ -771,7 +771,9 @@ const restaurants = [
 ];
 
 // your code here
-const map = L.map('map').setView([62.894351, 27.6412062], 13); // Центр карты и уровень масштабирования
+const L = window.L;
+
+const map = L.map('map').setView([62.894351, 27.6412062], 13);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(map);

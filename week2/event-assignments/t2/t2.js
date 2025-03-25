@@ -779,7 +779,10 @@ const sortedRestaurants = [...restaurants].sort((a, b) =>
   a.name.localeCompare(b.name)
 );
 
-function renderRestaurants() {
+
+// main function
+
+function displayRestaurants() {
   const tbody = document.createElement('tbody');
 
   sortedRestaurants.forEach(restaurant => {
@@ -796,7 +799,7 @@ function renderRestaurants() {
       });
 
       row.classList.add('highlight');
-      showRestaurantDetails(restaurant);
+      showDetails(restaurant);
     });
 
     tbody.appendChild(row);
@@ -807,7 +810,8 @@ function renderRestaurants() {
   else table.appendChild(tbody);
 }
 
-function showRestaurantDetails(restaurant) {
+// show details function
+function showDetails(restaurant) {
   dialog.innerHTML = `
     <h2>${restaurant.name}</h2>
     <p><strong>Address:</strong> ${restaurant.address}</p>
@@ -817,12 +821,14 @@ function showRestaurantDetails(restaurant) {
     <p><strong>Company:</strong> ${restaurant.company}</p>
     <button onclick="this.closest('dialog').close()">Close</button>
   `;
-
   dialog.showModal();
 }
+
 
 dialog.addEventListener('click', function (e) {
   if (e.target === this) this.close();
 });
 
-renderRestaurants();
+document.addEventListener('DOMContentLoaded', () => {
+  displayRestaurants();
+});

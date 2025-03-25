@@ -1,3 +1,6 @@
+
+// function to fetch data from the server
+
 async function fetchData(method, url, body = null) {
     try {
         const options = {
@@ -20,8 +23,6 @@ async function fetchData(method, url, body = null) {
         if (contentLength && contentLength !== "0") {
             data = await response.json();
         }
-
-
 
         console.log(`success ${method}-request:`, data);
     } catch (error) {
