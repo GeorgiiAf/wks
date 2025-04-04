@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Restaurants</h1>
+        <div class="filter-buttons">
+            <button id="filter-sodexo" type="button">Sodexo</button>
+            <button id="filter-compass" type="button">Compass</button>
+            <button id="filter-all" type="button">All</button>
+        </div>
+        <table id="restaurants-list"></table>
+    </div>
+
+    <dialog id="restaurant-modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </dialog>
+
+    <script src="main.js" type="module" defer></script>
+</body>
+
+</html>

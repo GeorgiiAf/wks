@@ -1,0 +1,1 @@
+[advanced-java-skript](https://users.metropolia.fi/~georgiia/WSK-25/week3/)
